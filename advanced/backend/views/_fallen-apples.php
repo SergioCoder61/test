@@ -54,6 +54,9 @@ for ($e = $apple['eating_percent'] + 25; $e <= 100; $e = $e + 25) {
     </form> 
 </td>
 </tr>
-
+<?php  
+}
+}
+?>	
 </tbody>
 </table>

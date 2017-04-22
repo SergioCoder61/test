@@ -119,4 +119,23 @@ class Apple extends \yii\db\ActiveRecord
         return $eatenApplesHtml;
     }
 
+    /**
+     * Возвращает HTML-таблицу гнилых яблок ( status_id = 4 )
+     */
+    public function getRottenApples()
+    {
+        $rottenApples = Yii::$app->db->createCommand(
+            'SELECT apple.id AS appleid, color_id, emergence_time, fall_time, eating_percent, ' . 
+                'hex_code, name ' .
+            'FROM apple, color ' .
+            'WHERE status_id = 4 AND color.id = color_id ' .
+            'ORDER BY emergence_time DESC')
+            ->queryAll();
+        $rottenApplesHtml = Yii::$app->view->renderFile('@backend/views/site/_rotten-apples.php', [
+            'rottenApples' => $rottenApples,
+            ]); 
+        return $rottenApplesHtml;
+    }
+
+
 }

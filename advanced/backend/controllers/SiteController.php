@@ -30,7 +30,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create', 'eat', 'fall'],
+                        'actions' => ['logout', 'index', 'create', 'eat', 'fall', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -65,11 +65,13 @@ class SiteController extends Controller
        	    $fallenApples = $model->getFallenApples();
        	    $hangingApples = $model->getHangingApples();
        	    $eatenApples = $model->getEatenApples();
+       	    $rottenApples = $model->getRottenApples();
 		}
         return $this->render('index', [
             'fallenApples' => $fallenApples,
             'hangingApples' => $hangingApples,
             'eatenApples' => $eatenApples,
+            'rottenApples' => $rottenApples,
         ]);
     }
 
@@ -138,6 +140,20 @@ class SiteController extends Controller
         }
         return $this->redirect(['index']);
     }
+
+    /**
+     * Поедание яблок.
+     * 
+     */
+    public function actionDelete()
+    {
+        $id = $_POST['id'];
+        $command = Yii::$app->db->createCommand(
+        'DELETE FROM apple WHERE id=' . $id);
+        $command->execute();
+        return $this->redirect(['index']);
+    }
+
 
     public function actionLogin()
     {

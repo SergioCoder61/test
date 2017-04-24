@@ -2,7 +2,7 @@
 namespace backend\controllers;
 
 use Yii;
-use app\Models\Apple;
+use app\models\Apple;
 use app\Models\Color;
 use yii\db\Expression;
 use yii\data\ActiveDataProvider;
@@ -142,7 +142,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Поедание яблок.
+     * Удаление яблок.
      * 
      */
     public function actionDelete()

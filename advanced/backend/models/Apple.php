@@ -11,6 +11,7 @@ use Yii;
  * @property integer $color_id
  * @property string $emergence_time
  * @property string $fall_time
+ * @property string $eat_time 
  * @property integer $status_id
  * @property integer $eating_percent
  */
@@ -32,7 +33,7 @@ class Apple extends \yii\db\ActiveRecord
         return [
             [['color_id', 'emergence_time', 'status_id', 'eating_percent'], 'required'],
             [['color_id', 'status_id', 'eating_percent'], 'integer'],
-            [['emergence_time', 'fall_time'], 'safe'],
+            [['emergence_time', 'fall_time', 'eat_time'], 'safe'],
         ];
     }
 
@@ -46,6 +47,7 @@ class Apple extends \yii\db\ActiveRecord
             'color_id' => 'Color ID',
             'emergence_time' => 'Emergence Time',
             'fall_time' => 'Fall Time',
+            'eat_time' => 'Eat Time',
             'status_id' => 'Status ID',
             'eating_percent' => 'Eating Percent',
         ];
@@ -93,7 +95,7 @@ class Apple extends \yii\db\ActiveRecord
                 'hex_code, name ' .
             'FROM apple, color ' .
             'WHERE status_id = 1 AND color.id = color_id ' .
-            'ORDER BY emergence_time')
+            'ORDER BY emergence_time, appleid')
             ->queryAll();
         $hangingApplesHtml = Yii::$app->view->renderFile('@backend/views/site/_hanging-apples.php', [
             'hangingApples' => $hangingApples,
@@ -136,6 +138,5 @@ class Apple extends \yii\db\ActiveRecord
             ]); 
         return $rottenApplesHtml;
     }
-
 
 }
